@@ -3,9 +3,40 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <app-form-product></app-form-product>
+        <app-form-product class="pl-3"></app-form-product>
     </div>
     <div class="col-md-6">
-        <span>List</span>
+        <table class="table">
+            <thead class="thead-ligth">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date In</th>
+                    <th>Date Out</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Is Faulty?</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of service.listProducts; let i = index" [class.faulty]="service.listProducts[i].productIsFaulty">
+                    <td (click)="populateForm(p)">{{p.productName}}</td>
+                    <td (click)="populateForm(p)">{{p.productDescription}}</td>
+                    <td (click)="populateForm(p)">{{p.productDateIn}}</td>
+                    <td (click)="populateForm(p)">{{p.productDateOut ? p.productDateOut : "No yet"}}</td>
+                    <td (click)="populateForm(p)">{{p.productPrice}}</td>
+                    <td (click)="populateForm(p)">{{p.productQuantity}}</td>
+                    <td>
+                        <input type="checkbox" [(ngModel)]="service.listProducts[i].productIsFaulty" 
+                        (click)="onChange(p)" >
+                    </td>
+                    <td>
+                        <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(p.productId)"></i>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
